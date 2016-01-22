@@ -1,0 +1,36 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+description ="""
+AWS API Gateway Executor (AGE)
+"""
+
+group = "io.onetapbeyond"
+archivesBaseName = "aws-gateway-executor"
+version = "1.0"
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'com.google.code.gson:gson:2.4'
+  testCompile "junit:junit:4.11"
+}
+
+jar {
+  manifest {
+    attributes("Implementation-Title": archivesBaseName,
+               "Implementation-Version": version)
+  }
+}
+
+javadoc {
+    title = "aws-gateway-executor"
+    options.overview = "src/main/java/overview.html"
+    exclude "io/onetapbeyond/aws/gateway/executor/api/**/*.java"
+    exclude "io/onetapbeyond/aws/gateway/executor/results/**/*.java"
+    exclude "io/onetapbeyond/aws/gateway/executor/tasks/**/*.java"
+}

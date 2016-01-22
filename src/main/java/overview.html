@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+</head>
+<body bgcolor="white">
+
+<p>
+A lightweight Java client library for calling APIs exposed by the <a href="https://aws.amazon.com/api-gateway/" target="_blank">Amazon Web Services (AWS) API Gateway</a>.
+
+AGE calls may invoke APIs on <a href="https://aws.amazon.com/lambda/" target="_blank">AWS Lambda</a>, Amazon EC2, or other publicly addressable web services that are hosted outside of AWS. This library is ideally suited for integrating services exposed by the AWS API Gateway into a wide range of applications, from mobile to new or existing server, middleware and cluster computing solutions. 
+<p><br>
+
+<p>
+This library provides the following AWS API Gateway support:
+<ul>
+<li>Simplified API execution using {@link io.onetapbeyond.aws.gateway.executor.AWSTask AWSTask}, no boilerplate {@link java.net} code required.
+<li>Fine grained access control to the API Gateway with support for gateway <a href="http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-api-keys.html" target="_blank">API keys</a>.
+<li>Distributed cluster environment support through automatic {@link io.onetapbeyond.aws.gateway.executor.AWSTask AWSTask} and {@link io.onetapbeyond.aws.gateway.executor.AWSResult AWSResult} serialization.
+</ul>
+<p><br>
+
+<p>
+When working with this library the basic usage pattern involves two steps:
+<p>
+<h4>Step 1. Identify an API on AWS API Gateway</h4>
+An application identifies an API on the AWS API Gateway that it 
+intends to use by creating an instance of {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway}. The 
+basic builder pattern for creating instances of {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway} is as follows:
+<pre> 
+AWSGateway gateway = AWS.Gateway(api-id).region(api-region).build();
+</pre>
+</p>
+See the documentation on the {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway} class for builder details. Note, if an application needs to integrate with more than one API on the AWS API Gateway then it should create an {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway} instance per API.
+<br>
+<p>
+<h4>Step 2. Make API calls on AWS API Gateway</h4>
+An application can create any number of executable {@link io.onetapbeyond.aws.gateway.executor.AWSTask AWSTask} 
+where each task represents an API call on the AWS API Gateway.
+The basic builder pattern for creating instances of {@link io.onetapbeyond.aws.gateway.executor.AWSTask AWSTask} is as follows:
+<pre> 
+AWSTask aTask = AWS.Task(gateway).resource(api-endpoint).get();
+</pre>
+</p>
+See the documentation on the {@link io.onetapbeyond.aws.gateway.executor.AWSTask AWSTask} class for builder details. 
+<br>
+</p>
+<h4>Example Usage</h4>
+<p>
+The following code snippet demonstrates the creation of an {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway} targeting the <i>beta</i> release of a fictitious <i>Echo</i> API. The API is identified by <i>echo-api-key</i>, and maintained in the <i>us-west-2</i> region by the AWS API Gateway:
+<pre>
+AWSGateway gateway = AWS.Gateway(echo-api-key).region(AWS.Region.OREGON).build();
+</pre>
+</p>
+Once your application has an instance of {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway} 
+you can start to create instances of {@link io.onetapbeyond.aws.gateway.executor.AWSTask AWSTask} in order
+to make calls on the API. For example, the following code snippet demonstrates how to define a simple HTTP GET call on the API's <i>echo</i> resource endpoint:
+<br>
+<p>
+<pre>
+AWSTask aTask = AWS.Task(gateway).resource("/echo").get();
+</pre>
+</p>
+To pass JSON data on an API call simply specify the data when
+building the {@link io.onetapbeyond.aws.gateway.executor.AWSTask AWSTask} instance:
+<br>
+<p>
+<pre>
+Map data = new HashMap();
+data.put("hello", "world");
+AWSTask aTask = AWS.Task(gateway).resource("/echo").input(data).post();
+</pre>
+Finally, to exeucte an {@link io.onetapbeyond.aws.gateway.executor.AWSTask AWSTask} call the {@link io.onetapbeyond.aws.gateway.executor.AWSTask#execute execute} method as follows:
+<pre>
+AWSResult aResult = aTask.execute();
+</pre>
+When the task execution completes the API call status, result data and/or error details are available on the {@link io.onetapbeyond.aws.gateway.executor.AWSResult AWSResult} returned by the {@link io.onetapbeyond.aws.gateway.executor.AWSTask#execute execute} method.
+<br>
+</body>
+</html>
