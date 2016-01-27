@@ -34,6 +34,7 @@ public class AGETests {
   static String API_ID = "klgr530w8i";
   static Region REGION = AWS.Region.OREGON;
   static String STAGE = "unit_test";
+  static String API = "/echo";
   static AWSGateway gateway;
 
   @BeforeClass
@@ -50,7 +51,7 @@ public class AGETests {
     data.put("hello", "world");
 
     AWSTask aTask = AWS.Task(gateway)
-                       .resource("/unit_test/echo")
+                       .resource(API)
                        .get();
 
     assertNotNull(aTask);
@@ -70,7 +71,7 @@ public class AGETests {
     data.put("hello", "world");
 
     AWSTask aTask = AWS.Task(gateway)
-                       .resource("/unit_test/echo")
+                       .resource(API)
                        .post();
 
     assertNotNull(aTask);
@@ -91,7 +92,7 @@ public class AGETests {
     data.put("hello", "world");
 
     AWSTask aTask = AWS.Task(gateway)
-                       .resource("/unit_test/echo")
+                       .resource(API)
                        .put();
 
     assertNotNull(aTask);
@@ -112,7 +113,7 @@ public class AGETests {
     data.put("hello", "world");
 
     AWSTask aTask = AWS.Task(gateway)
-                       .resource("/unit_test/echo")
+                       .resource(API)
                        .patch();
 
     assertNotNull(aTask);
@@ -133,7 +134,7 @@ public class AGETests {
     data.put("hello", "world");
 
     AWSTask aTask = AWS.Task(gateway)
-                       .resource("/unit_test/echo")
+                       .resource(API)
                        .delete();
 
     assertNotNull(aTask);

@@ -2,15 +2,15 @@
 
 [![Build Status](https://travis-ci.org/onetapbeyond/aws-gateway-executor.svg?branch=master)](https://travis-ci.org/onetapbeyond/aws-gateway-executor)
 
-A lightweight Java client library for calling APIs exposed by the [Amazon Web Service (AWS) API Gateway](https://aws.amazon.com/api-gateway/).
+A lightweight Java client library for calling APIs exposed by the [Amazon Web Service API Gateway](https://aws.amazon.com/api-gateway/).
 
-AGE calls may invoke APIs on [AWS Lambda](https://aws.amazon.com/lambda/), Amazon EC2, or other publicly addressable web services that are hosted outside of AWS. This library is ideally suited for integrating services exposed by the AWS API Gateway into a wide range of applications, from mobile to new or existing server, middleware and cluster computing solutions. 
+The API Gateway can route client calls to invoke [AWS Lambda](https://aws.amazon.com/lambda/) functions or any publicly addressable REST service regardless of where it is hosted. This library is ideally suited for integrating services exposed by the API Gateway into a wide range of applications, from mobile to new or existing server, middleware and cluster computing solutions. 
 
 
 ### Gradle Dependency
 
 ```
-compile 'io.onetapbeyond:aws-gateway-executor:1.0'
+compile 'io.onetapbeyond:aws-gateway-executor:1.1'
 ```
 
 ### Maven Dependency
@@ -19,7 +19,7 @@ compile 'io.onetapbeyond:aws-gateway-executor:1.0'
 <dependency>
   <groupId>io.onetapbeyond</groupId>
   <artifactId>aws-gateway-executor</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
 </dependency>
 ```
 
@@ -42,6 +42,7 @@ basic builder pattern for creating instances of `AWSGateway` is as follows:
 ```
 AWSGateway gateway = AWS.Gateway(api-id)
                         .region(api-region)
+                        .stage(api-stage)
                         .build();
 ```
 

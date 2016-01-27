@@ -5,9 +5,9 @@
 <body bgcolor="white">
 
 <p>
-A lightweight Java client library for calling APIs exposed by the <a href="https://aws.amazon.com/api-gateway/" target="_blank">Amazon Web Services (AWS) API Gateway</a>.
+A lightweight Java client library for calling APIs exposed by the <a href="https://aws.amazon.com/api-gateway/" target="_blank">Amazon Web Services API Gateway</a>.
 
-AGE calls may invoke APIs on <a href="https://aws.amazon.com/lambda/" target="_blank">AWS Lambda</a>, Amazon EC2, or other publicly addressable web services that are hosted outside of AWS. This library is ideally suited for integrating services exposed by the AWS API Gateway into a wide range of applications, from mobile to new or existing server, middleware and cluster computing solutions. 
+The API Gateway can route client calls to invoke <a href="https://aws.amazon.com/lambda/" target="_blank">AWS Lambda</a> functions or any publicly addressable REST service regardless of where it is hosted. This library is ideally suited for integrating services exposed by the API Gateway into a wide range of applications, from mobile to new or existing server, middleware and cluster computing solutions. 
 <p><br>
 
 <p>
@@ -27,7 +27,7 @@ An application identifies an API on the AWS API Gateway that it
 intends to use by creating an instance of {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway}. The 
 basic builder pattern for creating instances of {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway} is as follows:
 <pre> 
-AWSGateway gateway = AWS.Gateway(api-id).region(api-region).build();
+AWSGateway gateway = AWS.Gateway(api-id).region(api-region).stage(api-stage).build();
 </pre>
 </p>
 See the documentation on the {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway} class for builder details. Note, if an application needs to integrate with more than one API on the AWS API Gateway then it should create an {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway} instance per API.
@@ -48,7 +48,7 @@ See the documentation on the {@link io.onetapbeyond.aws.gateway.executor.AWSTask
 <p>
 The following code snippet demonstrates the creation of an {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway} targeting the <i>beta</i> release of a fictitious <i>Echo</i> API. The API is identified by <i>echo-api-key</i>, and maintained in the <i>us-west-2</i> region by the AWS API Gateway:
 <pre>
-AWSGateway gateway = AWS.Gateway(echo-api-key).region(AWS.Region.OREGON).build();
+AWSGateway gateway = AWS.Gateway(echo-api-key).region(AWS.Region.OREGON).stage("beta").build();
 </pre>
 </p>
 Once your application has an instance of {@link io.onetapbeyond.aws.gateway.executor.AWSGateway AWSGateway} 

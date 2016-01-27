@@ -195,6 +195,11 @@ public class AWSTaskImpl implements AWSTask {
         .append(DOT)
         .append(AMAZON_AWS);
 
+      if(gateway.stage() != null) {
+        sb.append(SLASH)
+          .append(gateway.stage());
+      }
+
       String resource = apiMap.get(RESOURCE);
 
       if(resource == null) // Protect against NPE.
