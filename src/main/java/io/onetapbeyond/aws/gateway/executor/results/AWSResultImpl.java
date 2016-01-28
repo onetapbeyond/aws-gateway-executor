@@ -16,7 +16,9 @@
 package io.onetapbeyond.aws.gateway.executor.results;
 
 import io.onetapbeyond.aws.gateway.executor.*;
+import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import com.google.gson.*;
 
 /*
@@ -73,8 +75,30 @@ public class AWSResultImpl implements AWSResult {
    * Return data outputs generated on task execution.
    */
   public Map output() {
-    // TODO:DMR
-    return null;
+
+    Map outputMap;
+
+    try {
+      /*
+       * Capture JSON name/value output as Map.
+       */
+      outputMap = gson.fromJson(output, Map.class);
+    } catch(Exception mex) {
+      outputMap = new HashMap();
+      try {
+        /*
+         * Convert JSON list output to Map.
+         */
+        outputMap.put("output", gson.fromJson(output, List.class));
+      } catch(Exception lex) {
+        /*
+         * Convert JSON output in any other format to Map.
+         */
+        outputMap.put("output", output);
+      }
+    }
+
+    return outputMap;
   }
 
   /*

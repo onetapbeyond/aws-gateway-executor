@@ -10,7 +10,7 @@ The API Gateway can route client calls to invoke [AWS Lambda](https://aws.amazon
 ### Gradle Dependency
 
 ```
-compile 'io.onetapbeyond:aws-gateway-executor:1.1'
+compile 'io.onetapbeyond:aws-gateway-executor:1.2'
 ```
 
 ### Maven Dependency
@@ -19,7 +19,7 @@ compile 'io.onetapbeyond:aws-gateway-executor:1.1'
 <dependency>
   <groupId>io.onetapbeyond</groupId>
   <artifactId>aws-gateway-executor</artifactId>
-  <version>1.1</version>
+  <version>1.2</version>
 </dependency>
 ```
 
